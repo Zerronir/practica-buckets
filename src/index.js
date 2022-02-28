@@ -2,11 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Header from './components/Header';
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Header />
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />} />
+
+
+      {/* Rutas de los formularios de inicio de sesion y registro */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Register />} />
+    </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
