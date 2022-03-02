@@ -6,9 +6,13 @@ import Header from './components/Header';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import reportWebVitals from './reportWebVitals';
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+let item = localStorage.getItem
+
 ReactDOM.render(
+
   <React.StrictMode>
     <Header />
     <BrowserRouter>

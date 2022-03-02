@@ -8,7 +8,18 @@ const Login = () => {
   const [pwd, setPwd] = useState();
 
     const login = async (e) => {
-
+      e.preventDefault();
+      axios.post('http://www239.cfgs.esliceu.net/login', {
+              username: username,
+              password: pwd
+            })
+            .then((res) => {
+              localStorage.setItem("userToken", res.data.accessToken);
+              window.location = "/";
+            })
+            .catch((err) => {
+              console.log(err);
+            });
     }
 
     return(
@@ -21,7 +32,7 @@ const Login = () => {
                     </div>
                   <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                     
-                    <form>
+                    <form onSubmit={e => {login(e)}}>
                       <div className="relative w-full my-3">
                         <label
                           className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -30,9 +41,11 @@ const Login = () => {
                           Email
                         </label>
                         <input
-                          type="email"
+                          type="text"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="Email"
+                          placeholder="Usuario"
+                          value={username}
+                          onChange={e => setUsername(e.target.value)}
                           style={{ transition: "all .15s ease" }}
                         />
                       </div>
@@ -48,6 +61,9 @@ const Login = () => {
                           type="password"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Contraseña"
+                          value={pwd}
+                          id="pwd"
+                          onChange={e => setPwd(e.target.value)}
                           style={{ transition: "all .15s ease" }}
                         />
                       </div>
@@ -55,7 +71,7 @@ const Login = () => {
                       <div className="text-center mt-6">
                         <button
                           className="bg-gradient-to-r from-indigo-500 to-gray-900 hover:bg-gradient-to-r hover:from-red-500 hover:via-yellow-500 hover:to-red-500 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                          type="button"
+                          type="submit"
                           style={{ transition: "all .15s ease" }}
                         >
                           Entrar
