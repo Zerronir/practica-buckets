@@ -7,6 +7,11 @@ const Register = () => {
     const [pwd, setPwd] = useState();
     const [pwdCheck, setPwdCheck] = useState();
 
+    let token = localStorage.getItem("accessToken");
+    if(token !== null) {
+      window.location = '/'
+    }
+
     const validateUsername = (username) => {
       if(username !== null) return true;
       return false;
@@ -35,7 +40,7 @@ const Register = () => {
               password: pwd
             })
             .then((res) => {
-              localStorage.setItem("userToken", res.data.id);
+              localStorage.setItem("accessToken", res.data.id);
               window.location = "/";
             })
             .catch((err) => {

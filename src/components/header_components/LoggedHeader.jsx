@@ -5,7 +5,7 @@ const LoggedHeader = () => {
 
     const logout = (e) => {
         e.preventDefault();
-        localStorage.removeItem('userToken');
+        localStorage.removeItem('accessToken');
         window.location = '/';
     }
 
@@ -48,7 +48,7 @@ const LoggedHeader = () => {
               <li className="nav-item">
                 <a
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="javascript:void(0);"
+                  href="#"
                   onClick={e => {logout(e)}}
                 >
                   <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i><span className="ml-2">Cerrar Sesión</span>

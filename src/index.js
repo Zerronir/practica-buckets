@@ -5,6 +5,7 @@ import App from './App';
 import Header from './components/Header';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import UserProfile from "./pages/private/UserProfile";
 import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -19,6 +20,9 @@ ReactDOM.render(
     <Routes>
       <Route path="/" element={<App />} />
 
+      {/* Páginas del usuario */}
+      <Route path="/user_profile" element={<UserProfile />} />
+      {/* Fin de las páginas del usuario*/}
 
       {/* Rutas de los formularios de inicio de sesion y registro */}
       <Route path="/login" element={<Login />} />

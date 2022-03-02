@@ -4,7 +4,7 @@ import NotLoggedHeader from "./header_components/NotLoggedHeader";
 const Header = () => {
     
 
-    let token = localStorage.getItem("userToken");
+    let token = localStorage.getItem("accessToken");
 
     if(token !== null) {
       return <LoggedHeader />
