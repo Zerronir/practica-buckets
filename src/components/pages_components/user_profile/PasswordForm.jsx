@@ -32,7 +32,7 @@ const PasswordForm = () => {
                           className="block uppercase text-gray-700 text-xs font-bold mb-2"
                           htmlFor="grid-password"
                         >
-                          Contraseña
+                          Nueva contraseña
                         </label>
                         <input
                           type="password"
