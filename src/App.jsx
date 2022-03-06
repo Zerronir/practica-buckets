@@ -16,6 +16,8 @@ const App = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
 
+  const [loading, setLoading] = useState(true);
+
   const [pageVis, setPageVis] = useState(false);
     let key = localStorage.getItem("user_name");
     let url = `http://www239.cfgs.esliceu.net/objects?prefix=${key}`;
@@ -37,13 +39,16 @@ const App = () => {
             }
           })
           .then((res) => {
+            console.log(res);
             setBucketList(res.data.versions);
             setPageVis(true);
+            setLoading(false);
           })
           .catch((err) => {
             setErrorMessage(err.message);
             setErrorModal(true);
             setPageVis(true);
+            setLoading(false);
           })
         }
     }, []);
@@ -53,9 +58,11 @@ const App = () => {
     if(token !== null) {
       setUserLogged(true);
       setPageVis(true);
+      setLoading(false);
     } else {
       setUserLogged(false);
       setPageVis(true);
+      setLoading(false);
     }
   }, []);
 
@@ -78,11 +85,14 @@ const App = () => {
           <UploadBucket />
         </div>
 
-        <div className="flex justify-between">
+        <div className="grid grid-cols-2">
         {
-          bucketList.map((bucket, i) => {
-            return i % 2 === 0 ? <BucketItem bucket={bucket} bg_color={"bg-white"} key={i} /> : <BucketItem bucket={bucket} bg_color={"bg-gray-200"} key={i} />;
-          })
+          loading !== true ?
+              bucketList.map((bucket, i) => {
+                return i % 2 === 0 ? <BucketItem bucket={bucket} bg_color={"bg-white"} key={i} /> : <BucketItem bucket={bucket} bg_color={"bg-gray-200"} key={i} />;
+              })
+          :
+          <Loading />
         }
         </div>
       </div>

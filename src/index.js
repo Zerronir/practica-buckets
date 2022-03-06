@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UserProfile from "./pages/private/UserProfile";
 import reportWebVitals from './reportWebVitals';
+import SingleBucket from "./components/SingleBucket";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -19,6 +20,10 @@ ReactDOM.render(
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
+
+      {/* Páginas de los buckets */}
+      <Route path={`/objects/${localStorage.getItem("user_name")}/:key`} element={<SingleBucket />} />
+      {/* Fin páginas de los buckets */}
 
       {/* Páginas del usuario */}
       <Route path="/user_profile" element={<UserProfile />} />

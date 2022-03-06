@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { BsFillCloudDownloadFill } from "react-icons/bs";
+import Moment from "react-moment";
 
 const BucketItem = ({bucket, bg_color}) => {
 
@@ -80,17 +80,27 @@ const BucketItem = ({bucket, bg_color}) => {
             });
     }
 
+    const goToBucket = e => {
+        e.preventDefault();
+        console.log(bucket.key.split("/")[1])
+        window.location = `/objects/${bucket.key}`
+    }
+
     return(
-        <div className={bg_color + " rounded-3xl border shadow-xl hover:shadow-sm p-4 w-full hover:cursor-pointer mx-3 " + display} onDoubleClick={e => downloadFile(e)}>
+        <div className={bg_color + " rounded-3xl border shadow-xl hover:shadow-sm p-4 w-full mb-10 hover:cursor-pointer" + display}
+            onDoubleClick={e => downloadFile(e)}
+            >
             <div className="flex justify-between mb-4">
                 <div className="py-4">
-                    <span className="font-bold">{bucket.key}</span>
+                    <span className="font-bold">{bucket.key.split("/")[1]}</span>
                 </div>
             </div>
 
             <div className="py-2">
-                <h3 className="font-semibold py-1 text-sm text-gray-400">{bucket.lastModified}</h3>
-                <p className="font-semibold py-1 text-sm text-gray-600">{formatBytes(bucket.size)}</p>
+                <p className="font-semibold py-1 text-sm text-gray-600">Etag: {bucket.etag.replaceAll('"', "")}</p>
+                <h3 className="font-semibold py-1 text-sm text-gray-400">Modificado por última vez: <Moment date={bucket.lastModified} format="DD/MM/YYYY HH:mm:ss" /></h3>
+                <p className="font-semibold py-1 text-sm text-gray-600">Tamaño: {formatBytes(bucket.size)}</p>
+                <p className="font-semibold py-1 text-sm text-gray-600">Versión actual: {bucket.versionId}</p>
             </div>
 
             <div>
