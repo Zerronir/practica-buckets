@@ -17,8 +17,8 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const [pageVis, setPageVis] = useState(false);
-
-    let url = 'http://www239.cfgs.esliceu.net/objects?prefix=test_raul';
+    let key = localStorage.getItem("user_name");
+    let url = `http://www239.cfgs.esliceu.net/objects?prefix=${key}`;
     let token = localStorage.getItem("accessToken");
 
     let config = {

@@ -1,3 +1,4 @@
+import axios from "axios";
 import {useState, useEffect} from "react";
 import Loader from "../../Loader";
 
@@ -9,6 +10,18 @@ const PasswordForm = () => {
     
     const changePwd = (e) => {
         e.preventDefault();
+
+        axios.post('http://www239.cfgs.esliceu.net/password', {
+          newPassword: '',
+          oldPassword: '',
+        })
+        .then((res) => {
+
+        })
+        .then((err) => {
+          
+        })
+
     }
 
     if(pageVis) {

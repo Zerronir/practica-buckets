@@ -22,6 +22,7 @@ const Login = () => {
             .then((res) => {
               console.log(res);
               localStorage.setItem("accessToken", res.data.accessToken);
+              localStorage.setItem("user_name", username);
               window.location = "/";
             })
             .catch((err) => {

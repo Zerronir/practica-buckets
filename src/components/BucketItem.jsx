@@ -1,6 +1,10 @@
+import axios from "axios";
+import { useState } from "react";
 import { BsFillCloudDownloadFill } from "react-icons/bs";
 
 const BucketItem = ({bucket, bg_color}) => {
+
+    const [display, setDisplay] = useState('');
 
     const downloadFile = (e) => {
 
@@ -55,8 +59,29 @@ const BucketItem = ({bucket, bg_color}) => {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
     }
 
+    const deleteItem = (key, versionId) => {
+        let url = `http://www239.cfgs.esliceu.net/objects/${bucket.key}`;
+
+        if(versionId !== null) {
+            url = `http://www239.cfgs.esliceu.net/objects/${key}?versionId=${versionId}`
+        }
+
+        axios.delete(url, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem("accessToken"),
+                'Content-Type': 'application/json'
+              }
+            })
+            .then((res) => {
+                setDisplay('hidden');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
     return(
-        <div className={bg_color + " rounded-3xl border shadow-xl hover:shadow-sm p-4 w-1/3 hover:cursor-pointer"} onDoubleClick={e => downloadFile(e)}>
+        <div className={bg_color + " rounded-3xl border shadow-xl hover:shadow-sm p-4 w-full hover:cursor-pointer mx-3 " + display} onDoubleClick={e => downloadFile(e)}>
             <div className="flex justify-between mb-4">
                 <div className="py-4">
                     <span className="font-bold">{bucket.key}</span>
@@ -67,6 +92,11 @@ const BucketItem = ({bucket, bg_color}) => {
                 <h3 className="font-semibold py-1 text-sm text-gray-400">{bucket.lastModified}</h3>
                 <p className="font-semibold py-1 text-sm text-gray-600">{formatBytes(bucket.size)}</p>
             </div>
+
+            <div>
+                <button className="rounded-full bg-gradient-to-r from-red-500 to-red-900 py-2 px-4 font-bold text-white" onClick={() => deleteItem(bucket.key, bucket.versionId)}>Eliminar</button>
+            </div>
+
         </div>
     )
 }

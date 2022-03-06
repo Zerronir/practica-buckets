@@ -33,15 +33,28 @@ const Register = () => {
       let pwdChecker = checkPasswordMatch(pwd, pwdCheck);
       let validUser = validateUsername(username);
       let validPwd = validatePassword(pwd);
-
+      /**
+       * Registramos y logueamos al usuario que se acaba de registrar para que tenga el token de acceso a todos los elementos de la app 
+       *  */
       if(pwdChecker && validPwd && validUser) {
         axios.post('http://www239.cfgs.esliceu.net/signup', {
               username: username,
               password: pwd
             })
             .then((res) => {
-              localStorage.setItem("accessToken", res.data.id);
-              window.location = "/";
+              axios.post(`http://www239.cfgs.esliceu.net/login`, {
+                username: username,
+                password: pwd
+              })
+              .then((res) => {
+                localStorage.setItem("accessToken", res.data.accessToken);
+                localStorage.setItem("user_name", username);
+                window.location = "/";
+              })
+              .catch((err) => {
+                alert(err);
+                window.location.reload();
+              })
             })
             .catch((err) => {
               console.log(err);

@@ -1,7 +1,8 @@
+import DeleteUser from "../../modals/user/DeleteUser";
 const DeleteAccountForm = () => {
     return (
         <>
-            Formulario de eliminar cuenta
+            <DeleteUser />
         </>
     )
 }
