@@ -10,7 +10,7 @@ const DeleteUser = () => {
 
       axios.delete(`http://www239.cfgs.esliceu.net/user`, {
           headers: {
-            Authorization: 'Bearer ' + localStorage.getItem("accessToken"),
+            Authorization: 'Bearer ' + sessionStorage.getItem("accessToken"),
             'Content-Type': 'application/json'
           }
       })

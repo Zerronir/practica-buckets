@@ -47,8 +47,9 @@ const Register = () => {
                 password: pwd
               })
               .then((res) => {
-                localStorage.setItem("accessToken", res.data.accessToken);
-                localStorage.setItem("user_name", username);
+                sessionStorage.setItem("accessToken", res.data.accessToken);
+                sessionStorage.setItem("user_name", username);
+                sessionStorage.setItem("old_password", pwd);
                 window.location = "/";
               })
               .catch((err) => {

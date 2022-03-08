@@ -5,7 +5,7 @@ const LoggedHeader = () => {
 
     const logout = (e) => {
         e.preventDefault();
-        localStorage.removeItem('accessToken');
+        sessionStorage.removeItem('accessToken');
         window.location = '/';
     }
 

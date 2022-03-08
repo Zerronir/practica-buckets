@@ -20,13 +20,13 @@ const UploadBucket = ({visibility}) => {
       data.append('content', file);
 
       console.log(file.name);
-      let userLogged = localStorage.getItem('user_name');
+      let userLogged = sessionStorage.getItem('user_name');
       let key = `${userLogged}/${file.name.replaceAll(" ", "_")}`;
-      let token = localStorage.getItem("accessToken");
+      let token = sessionStorage.getItem("accessToken");
 
       axios.put(`http://www239.cfgs.esliceu.net/objects/${key}`, file, {
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem("accessToken"),
+          Authorization: 'Bearer ' + sessionStorage.getItem("accessToken"),
           'Content-Type': 'application/octet-stream',
         }
       })

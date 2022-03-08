@@ -24,7 +24,7 @@ const UserProfile = () => {
         setTimeout(() => {
             axios.get(`${url}`, {
                 headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem("accessToken")
+                    Authorization: 'Bearer ' + sessionStorage.getItem("accessToken")
                 }
             })
             .then((res) => {
@@ -41,7 +41,7 @@ const UserProfile = () => {
                 seterrorMessage(true);
                 setPageVis(true);
                 error = 'Inicia sesión por favor';
-                localStorage.removeItem("accessToken");
+                sessionStorage.removeItem("accessToken");
                 setTimeout(() => {
                     window.location.reload();
                 }, 3000)
@@ -50,7 +50,7 @@ const UserProfile = () => {
 
     }, []);
 
-    if(user.id === null && localStorage.getItem("accessToken") === null) {
+    if(user.id === null && sessionStorage.getItem("accessToken") === null) {
         return window.location = '/login'
     }
 

@@ -7,12 +7,12 @@ const SingleBucket = () => {
     const [bucket, setBucket] = useState([]);
 
     useEffect(() => {
-        let user = localStorage.getItem("user_name");
+        let user = sessionStorage.getItem("user_name");
         let full_key = `${user}/${key}`;
 
         axios.get(`http://www239.cfgs.esliceu.net/objects/${full_key}`,{
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem("accessToken"),
+                Authorization: 'Bearer ' + sessionStorage.getItem("accessToken"),
                 'Content-Type': 'application/json'
               }
         })

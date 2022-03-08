@@ -19,9 +19,9 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   const [pageVis, setPageVis] = useState(false);
-    let key = localStorage.getItem("user_name");
+    let key = sessionStorage.getItem("user_name");
     let url = `http://www239.cfgs.esliceu.net/objects?prefix=${key}`;
-    let token = localStorage.getItem("accessToken");
+    let token = sessionStorage.getItem("accessToken");
 
     let config = {
       headers: {
@@ -34,7 +34,7 @@ const App = () => {
         if(token !== null) {
           axios.get(`${url}`, {
             headers: {
-              Authorization: 'Bearer ' + localStorage.getItem("accessToken"),
+              Authorization: 'Bearer ' + sessionStorage.getItem("accessToken"),
               'Content-Type': 'application/json'
             }
           })
@@ -89,7 +89,10 @@ const App = () => {
         {
           loading !== true ?
               bucketList.map((bucket, i) => {
-                return i % 2 === 0 ? <BucketItem bucket={bucket} bg_color={"bg-white"} key={i} /> : <BucketItem bucket={bucket} bg_color={"bg-gray-200"} key={i} />;
+                return i % 2 === 0 ? 
+                <BucketItem bucket={bucket} bg_color={"bg-white"} key={i} /> 
+                : 
+                <BucketItem bucket={bucket} bg_color={"bg-gray-200"} key={i} />;
               })
           :
           <Loading />
@@ -99,8 +102,8 @@ const App = () => {
     )
   } else {
     return(
-      <div className="container mx-10 flex">
-        <h1>Inicia sesión cerdo</h1>
+      <div className="container mx-auto flex">
+        <h1>Inicia sesión</h1>
       </div>
     )
   }

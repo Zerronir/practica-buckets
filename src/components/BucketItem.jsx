@@ -14,7 +14,7 @@ const BucketItem = ({bucket, bg_color}) => {
         fetch(`http://www239.cfgs.esliceu.net/objects/${bucket.key}`, {
             method: 'GET',
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem("accessToken")
+                Authorization: 'Bearer ' + sessionStorage.getItem("accessToken")
             },
         })
         .then((response) => response.blob())
@@ -68,7 +68,7 @@ const BucketItem = ({bucket, bg_color}) => {
 
         axios.delete(url, {
             headers: {
-                Authorization: 'Bearer ' + localStorage.getItem("accessToken"),
+                Authorization: 'Bearer ' + sessionStorage.getItem("accessToken"),
                 'Content-Type': 'application/json'
               }
             })

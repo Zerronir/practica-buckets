@@ -4,27 +4,51 @@ import Loader from "../../Loader";
 
 const PasswordForm = () => {
 
-    const [username, setUsername] = useState();
-    const [pageVis, setPageVis] = useState(false);
+    const [pageVis, setPageVis] = useState(true);
     const [pwd, setPwd] = useState();
+    const [pwd2, setPwd2] = useState();
     
     const changePwd = (e) => {
         e.preventDefault();
 
-        axios.post('http://www239.cfgs.esliceu.net/password', {
-          newPassword: '',
-          oldPassword: '',
-        })
-        .then((res) => {
+        setPageVis(false);
 
-        })
-        .then((err) => {
-          
-        })
+        if(pwd !== sessionStorage.getItem("old_password")) {
+          if(pwd === pwd2 && pwd.length >= 8) {
+            axios.post('http://www239.cfgs.esliceu.net/user/password', {
+                newPassword: pwd,
+                oldPassword: sessionStorage.getItem("old_password"),
+              },
+              {
+                headers: {
+                  Authorization: 'Bearer ' + sessionStorage.getItem("accessToken"),
+                }
+              }
+              )
+              .then((res) => {
+                sessionStorage.removeItem("accessToken");
+                sessionStorage.removeItem("user_name");
+                setPageVis(true);
+              })
+              .then(() => {
+                alert("se va a cerrar la sesión para que entres con tus nuevas credenciales");
+                setPageVis(true);
+                window.location = '/login';
+              })
+              .catch((err) => {
+                setPageVis(true);
+                console.log(err.errors[0].message);
+              })
+          } else {
+            setPageVis(true);
+          }
+        } else {
+          setPageVis(true);
+        }
 
     }
 
-    if(pageVis) {
+    if(!pageVis) {
         return <Loader />;
     }
 
@@ -69,9 +93,9 @@ const PasswordForm = () => {
                           type="password"
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Repite la contraseña"
-                          value={pwd}
+                          value={pwd2}
                           id="pwd"
-                          onChange={e => setPwd(e.target.value)}
+                          onChange={e => setPwd2(e.target.value)}
                           style={{ transition: "all .15s ease" }}
                         />
                       </div>
